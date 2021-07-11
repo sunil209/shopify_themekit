@@ -1,0 +1,24 @@
+name: Deploy Staging Theme
+
+on:
+  push:
+    pull_request: null
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    name: Deploy Staging Theme
+    runs-on: ubuntu-latest
+    steps:
+      # basically git clone
+      - uses: actions/checkout@v2
+      # deploy shopify theme
+      - uses: pgrimaud/action-shopify@2.1.3
+        env:
+          SHOPIFY_PASSWORD: ${{ secrets.SHOPIFY_STAGING_PASSWORD }}
+          SHOPIFY_STORE_URL: ${{ secrets.SHOPIFY_STAGING_STORE_URL }}
+          SHOPIFY_THEME_ID: ${{ secrets.SHOPIFY_STAGING_THEME_ID }}
+          THEME_PATH: ${{ secrets.THEME_PATH }}
+        with:
+          args: --ignored-file=config/settings_data.json --ignored-file=locales/*
