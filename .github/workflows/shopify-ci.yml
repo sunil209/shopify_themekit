@@ -1,6 +1,6 @@
 name: Shopify CI
 
-on: 
+on:
   push:
     branches:
       - "production"
@@ -11,34 +11,34 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/stage'
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Set up Python 2.7
-      uses: actions/setup-python@v2
-      with:
-        python-version: '2.7'
+      - name: Set up Python 2.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: "2.7"
 
-    - name: Download Theme Kit and Deploy the code on Stage
-      run: |
-        curl -s https://raw.githubusercontent.com/Shopify/themekit/master/scripts/install.py | sudo python
-        npm install
-        npm run build
-        theme deploy -e=staging  --password=${{secrets.RW_SHOPIFY_API_PASSWORD}} --themeid=${{secrets.RW_STAGING_THEME_ID}}
+      - name: Download Theme Kit and Deploy the code on Stage
+        run: |
+          curl -s https://raw.githubusercontent.com/Shopify/themekit/master/scripts/install.py | sudo python
+          npm install
+          npm run build
+          theme deploy -e=staging  --password=${{secrets.WDM_SHOPIFY_API_PASSWORD}} --themeid=${{secrets.WDM_STAGING_THEME_ID}}
 
   production:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/production'
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Set up Python 2.7
-      uses: actions/setup-python@v2
-      with:
-        python-version: '2.7'
+      - name: Set up Python 2.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: "2.7"
 
-    - name: Download Theme Kit and Deploy the code on Stage
-      run: |
-        curl -s https://raw.githubusercontent.com/Shopify/themekit/master/scripts/install.py | sudo python
-        npm install
-        npm run build
-        theme deploy -e=production --password=${{secrets.RW_SHOPIFY_API_PASSWORD}} --themeid=${{secrets.RW_PRODUCTION_THEME_ID}} --allow-live
+      - name: Download Theme Kit and Deploy the code on Stage
+        run: |
+          curl -s https://raw.githubusercontent.com/Shopify/themekit/master/scripts/install.py | sudo python
+          npm install
+          npm run build
+          theme deploy -e=production --password=${{secrets.WDM_SHOPIFY_API_PASSWORD}} --themeid=${{secrets.WDM_PRODUCTION_THEME_ID}} --allow-live
