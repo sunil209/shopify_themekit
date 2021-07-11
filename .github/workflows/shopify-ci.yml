@@ -3,8 +3,8 @@ name: Shopify CI
 on:
   push:
     branches:
-      - "production"
-      - "stage"
+      - "production_ignore"
+      - "stage_ignore"
 
 jobs:
   stage:
